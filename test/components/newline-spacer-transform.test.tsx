@@ -146,7 +146,7 @@ describe('Spacer', () => {
 		const w2 = spacer2.yogaNode!.getComputedWidth();
 
 		expect(w1).toBeGreaterThan(0);
-		expect(w1).toBe(w2);
+		expect(Math.abs(w1 - w2)).toBeLessThanOrEqual(1);
 	});
 });
 

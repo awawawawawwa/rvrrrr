@@ -80,6 +80,7 @@ const hostConfig = {
 		const node = createNode(type);
 
 		if (props.style) {
+			node.style = props.style as Styles;
 			applyStyles(node.yogaNode!, props.style as Styles);
 		}
 
@@ -148,6 +149,7 @@ const hostConfig = {
 		newProps: Record<string, unknown>,
 	) {
 		if (newProps.style) {
+			node.style = newProps.style as Styles;
 			applyStyles(node.yogaNode!, newProps.style as Styles);
 		}
 
