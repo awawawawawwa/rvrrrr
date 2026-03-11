@@ -1,0 +1,43 @@
+{
+  "name": "tui-engine",
+  "version": "0.1.0",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsup",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "dependencies": {
+    "react-reconciler": "^0.33.0",
+    "scheduler": "^0.27.0",
+    "yoga-layout": "~3.2.1",
+    "widest-line": "^6.0.0",
+    "string-width": "^8.1.1",
+    "wrap-ansi": "^10.0.0",
+    "cli-truncate": "^5.1.1",
+    "cli-boxes": "^3.0.0",
+    "ansi-styles": "^6.2.1",
+    "type-fest": "^5.4.1"
+  },
+  "peerDependencies": {
+    "react": ">=19.0.0"
+  },
+  "devDependencies": {
+    "react": "^19.0.0",
+    "@types/react": "^19.0.0",
+    "@types/react-reconciler": "^0.28.9",
+    "typescript": "^5.8.0",
+    "tsup": "^8.0.0",
+    "vitest": "^3.0.0"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
