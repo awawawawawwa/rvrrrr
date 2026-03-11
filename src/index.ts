@@ -31,3 +31,21 @@ export {
 } from './layout/index.js';
 
 export type {Styles} from './layout/index.js';
+
+// Components
+export {
+	Box,
+	Text,
+	Newline,
+	Spacer,
+	Transform,
+} from './components/index.js';
+
+export type {
+	BoxProps,
+	TextProps,
+	NewlineProps,
+	TransformProps,
+} from './components/index.js';
+
+export {TextContext} from './components/context.js';
