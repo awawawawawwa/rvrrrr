@@ -15,26 +15,27 @@
     "test:watch": "vitest"
   },
   "dependencies": {
+    "ansi-styles": "^6.2.1",
+    "cli-boxes": "^3.0.0",
+    "cli-truncate": "^5.1.1",
     "react-reconciler": "^0.33.0",
     "scheduler": "^0.27.0",
-    "yoga-layout": "~3.2.1",
-    "widest-line": "^6.0.0",
     "string-width": "^8.1.1",
+    "type-fest": "^5.4.1",
+    "widest-line": "^6.0.0",
     "wrap-ansi": "^10.0.0",
-    "cli-truncate": "^5.1.1",
-    "cli-boxes": "^3.0.0",
-    "ansi-styles": "^6.2.1",
-    "type-fest": "^5.4.1"
+    "yoga-layout": "~3.2.1"
   },
   "peerDependencies": {
     "react": ">=19.0.0"
   },
   "devDependencies": {
-    "react": "^19.0.0",
+    "@types/node": "^25.4.0",
     "@types/react": "^19.0.0",
     "@types/react-reconciler": "^0.28.9",
-    "typescript": "^5.8.0",
+    "react": "^19.0.0",
     "tsup": "^8.0.0",
+    "typescript": "^5.8.0",
     "vitest": "^3.0.0"
   },
   "engines": {
