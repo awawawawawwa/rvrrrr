@@ -1,9 +1,7 @@
 import {type Node as YogaNode} from 'yoga-layout';
+import {type Styles} from '../layout/styles.js';
 
 export type OutputTransformer = (s: string, index: number) => string;
-
-/** Minimal style shape for DOMElement; full Styles type lives in layout/styles.ts */
-export type DOMElementStyle = Record<string, unknown>;
 
 export type TextName = '#text';
 export type ElementNames =
@@ -28,7 +26,7 @@ export type DOMElement = {
 	onRender?: () => void;
 	onImmediateRender?: () => void;
 	internal_layoutListeners?: Set<() => void>;
-	style: DOMElementStyle;
+	style: Styles;
 };
 
 export type TextNode = {
@@ -36,7 +34,7 @@ export type TextNode = {
 	nodeValue: string;
 	yogaNode?: YogaNode;
 	parentNode?: DOMElement;
-	style: Record<string, never>;
+	style: Styles;
 };
 
 export type DOMNode = DOMElement | TextNode;
