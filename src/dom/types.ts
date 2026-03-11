@@ -39,12 +39,6 @@ export type TextNode = {
 	style: Record<string, never>;
 };
 
-export type DOMNode<T = {nodeName: string}> = T extends {
-	nodeName: infer U;
-}
-	? U extends '#text'
-		? TextNode
-		: DOMElement
-	: never;
+export type DOMNode = DOMElement | TextNode;
 
 export type DOMNodeAttribute = boolean | string | number;
