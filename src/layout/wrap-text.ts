@@ -3,6 +3,8 @@ import cliTruncate from 'cli-truncate';
 
 export type TextWrapType =
 	| 'wrap'
+	| 'end'
+	| 'middle'
 	| 'truncate'
 	| 'truncate-start'
 	| 'truncate-middle'
@@ -31,10 +33,10 @@ const wrapText = (
 		});
 	}
 
-	if (wrapType!.startsWith('truncate')) {
+	if (wrapType === 'end' || wrapType === 'middle' || wrapType!.startsWith('truncate')) {
 		let position: 'end' | 'middle' | 'start' = 'end';
 
-		if (wrapType === 'truncate-middle') {
+		if (wrapType === 'truncate-middle' || wrapType === 'middle') {
 			position = 'middle';
 		}
 
