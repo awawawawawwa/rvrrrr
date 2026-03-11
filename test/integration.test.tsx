@@ -1,5 +1,5 @@
 import {describe, it, expect} from 'vitest';
-import React from 'react';
+import React, {act} from 'react';
 import Yoga from 'yoga-layout';
 import {reconciler} from '../src/reconciler/index.js';
 import {createNode} from '../src/dom/dom.js';
@@ -35,19 +35,21 @@ describe('Integration: Reconciler + Yoga Layout', () => {
 			null,
 		);
 
-		reconciler.updateContainer(
-			React.createElement(
-				'ink-box',
-				{
-					style: {flexDirection: 'row', padding: 1},
-				},
-				React.createElement('ink-text', null, 'Hello'),
-				React.createElement('ink-text', null, 'World'),
-			),
-			container,
-			null,
-			() => {},
-		);
+		act(() => {
+			reconciler.updateContainer(
+				React.createElement(
+					'ink-box',
+					{
+						style: {flexDirection: 'row', padding: 1},
+					},
+					React.createElement('ink-text', null, 'Hello'),
+					React.createElement('ink-text', null, 'World'),
+				),
+				container,
+				null,
+				() => {},
+			);
+		});
 
 		expect(layoutComputed).toBe(true);
 
@@ -92,23 +94,25 @@ describe('Integration: Reconciler + Yoga Layout', () => {
 			null,
 		);
 
-		reconciler.updateContainer(
-			React.createElement(
-				'ink-box',
-				{
-					style: {flexDirection: 'column', width: 40},
-				},
-				React.createElement('ink-box', {
-					style: {height: 3},
-				}),
-				React.createElement('ink-box', {
-					style: {height: 5},
-				}),
-			),
-			container,
-			null,
-			() => {},
-		);
+		act(() => {
+			reconciler.updateContainer(
+				React.createElement(
+					'ink-box',
+					{
+						style: {flexDirection: 'column', width: 40},
+					},
+					React.createElement('ink-box', {
+						style: {height: 3},
+					}),
+					React.createElement('ink-box', {
+						style: {height: 5},
+					}),
+				),
+				container,
+				null,
+				() => {},
+			);
+		});
 
 		const outerBox = root.childNodes[0] as DOMElement;
 		const topBox = outerBox.childNodes[0] as DOMElement;

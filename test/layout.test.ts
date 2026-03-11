@@ -46,8 +46,8 @@ describe('Yoga Layout', () => {
 		const node = Yoga.Node.create();
 		applyStyles(node, {padding: 2, margin: 1, gap: 1});
 
-		expect(node.getPadding(Yoga.EDGE_TOP).value).toBe(2);
-		expect(node.getMargin(Yoga.EDGE_TOP).value).toBe(1);
+		expect(node.getPadding(Yoga.EDGE_ALL).value).toBe(2);
+		expect(node.getMargin(Yoga.EDGE_ALL).value).toBe(1);
 
 		node.freeRecursive();
 	});

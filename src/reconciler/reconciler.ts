@@ -44,8 +44,17 @@ const hostConfig = {
 	shouldYield: Scheduler.unstable_shouldYield,
 	now: Scheduler.unstable_now,
 
-	getRootHostContext: () => null,
-	getChildHostContext: () => null,
+	getRootHostContext: () => ({isInsideText: false}),
+	getChildHostContext(
+		_parentHostContext: {isInsideText: boolean},
+		type: string,
+	) {
+		if (type === 'ink-text' || type === 'ink-virtual-text') {
+			return {isInsideText: true};
+		}
+
+		return _parentHostContext;
+	},
 
 	shouldSetTextContent: () => false,
 	getPublicInstance: (instance: unknown) => instance,

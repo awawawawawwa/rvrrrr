@@ -33,6 +33,7 @@
     "@types/node": "^25.4.0",
     "@types/react": "^19.0.0",
     "@types/react-reconciler": "^0.28.9",
+    "@types/scheduler": "^0.26.0",
     "react": "^19.0.0",
     "tsup": "^8.0.0",
     "typescript": "^5.8.0",

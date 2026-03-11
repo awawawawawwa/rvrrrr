@@ -1,0 +1,14 @@
+
+
+
+
+
+
+step 1 rough protocol sketch for json
+
+step 2 create the rust crate (binary) - add lib later for api and
+other reasons
+
+
+
+

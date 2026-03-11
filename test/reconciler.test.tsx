@@ -1,5 +1,5 @@
 import {describe, it, expect} from 'vitest';
-import React from 'react';
+import React, {act} from 'react';
 import Yoga from 'yoga-layout';
 import {reconciler} from '../src/reconciler/index.js';
 import {createNode} from '../src/dom/dom.js';
@@ -31,7 +31,9 @@ function renderToRoot(root: DOMElement, element: React.ReactElement) {
 		() => {},
 		null,
 	);
-	reconciler.updateContainer(element, container, null, () => {});
+	act(() => {
+		reconciler.updateContainer(element, container, null, () => {});
+	});
 	return container;
 }
 
@@ -85,16 +87,18 @@ describe('Reconciler + DOM', () => {
 			),
 		);
 
-		reconciler.updateContainer(
-			React.createElement(
-				'ink-box',
+		act(() => {
+			reconciler.updateContainer(
+				React.createElement(
+					'ink-box',
+					null,
+					React.createElement('ink-text', null, 'A'),
+				),
+				container,
 				null,
-				React.createElement('ink-text', null, 'A'),
-			),
-			container,
-			null,
-			() => {},
-		);
+				() => {},
+			);
+		});
 
 		const box = root.childNodes[0] as DOMElement;
 		expect(box.childNodes.length).toBe(1);
@@ -108,12 +112,14 @@ describe('Reconciler + DOM', () => {
 			React.createElement('ink-text', null, 'Hello'),
 		);
 
-		reconciler.updateContainer(
-			React.createElement('ink-text', null, 'World'),
-			container,
-			null,
-			() => {},
-		);
+		act(() => {
+			reconciler.updateContainer(
+				React.createElement('ink-text', null, 'World'),
+				container,
+				null,
+				() => {},
+			);
+		});
 
 		const text = root.childNodes[0] as DOMElement;
 		expect(text.childNodes.length).toBe(1);
