@@ -123,7 +123,7 @@ mod tests {
 
     #[test]
     fn deserialize_render_message_with_box() {
-        let json = r#"{
+        let json = r##"{
             "type": "render",
             "root": {
                 "kind": "box",
@@ -147,7 +147,7 @@ mod tests {
                 "overflow": "visible",
                 "children": []
             }
-        }"#;
+        }"##;
         let msg: ProtocolMessage = serde_json::from_str(json).unwrap();
         match msg {
             ProtocolMessage::Render { root } => match root {
