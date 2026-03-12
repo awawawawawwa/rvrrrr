@@ -49,3 +49,25 @@ export type {
 } from './components/index.js';
 
 export {TextContext} from './components/context.js';
+
+// Protocol
+export {
+	serializeTree,
+	encodeMessage,
+	encodeMessages,
+	createErrorMessage,
+	ErrorCodes,
+} from './protocol/index.js';
+
+export type {
+	WidgetNode,
+	BoxNode,
+	TextNode as ProtocolTextNode,
+	Layout,
+	Padding,
+	Border,
+	BoxStyleWire,
+	RenderMessage,
+	ErrorMessage,
+	ProtocolMessage,
+} from './protocol/index.js';
