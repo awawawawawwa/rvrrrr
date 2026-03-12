@@ -5,3 +5,4 @@ pub mod colors;
 pub mod diff;
 pub mod painter;
 pub mod protocol;
+pub mod terminal;
