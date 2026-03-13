@@ -2,7 +2,9 @@
 ///
 /// Every struct here deserializes the exact JSON shape produced by the
 /// TypeScript serializer so the two sides stay in lock-step.
-use serde::Deserialize;
+use serde::{Deserialize, Serialize};
+
+use crate::input::InputEvent;
 
 /// Absolute pixel position and size of a widget.
 #[derive(Debug, Clone, Deserialize)]
@@ -103,18 +105,46 @@ pub enum WidgetNode {
     Text(TextNodeData),
 }
 
-/// Top-level message received from the TypeScript engine, discriminated
-/// by `type`.
+/// Top-level message received from the TypeScript engine (JS → Rust),
+/// discriminated by `type`.
 #[derive(Debug, Clone, Deserialize)]
 #[serde(tag = "type")]
-pub enum ProtocolMessage {
+pub enum InMessage {
     #[serde(rename = "render")]
-    Render { root: WidgetNode },
+    Render {
+        root: WidgetNode,
+        #[serde(rename = "frameId")]
+        frame_id: u64,
+    },
+    #[serde(rename = "resize")]
+    Resize { width: u16, height: u16 },
+    #[serde(rename = "shutdown")]
+    Shutdown,
     #[serde(rename = "error")]
     Error {
         message: String,
         code: Option<String>,
     },
+}
+
+/// Top-level message sent from Rust to the TypeScript engine (Rust → JS),
+/// discriminated by `type`.
+#[derive(Debug, Clone, Serialize)]
+#[serde(tag = "type")]
+pub enum OutMessage {
+    #[serde(rename = "ready")]
+    Ready,
+    #[serde(rename = "rendered")]
+    Rendered {
+        #[serde(rename = "frameId")]
+        frame_id: u64,
+    },
+    #[serde(rename = "input")]
+    Input { event: InputEvent },
+    #[serde(rename = "error")]
+    Error { message: String },
+    #[serde(rename = "fatal")]
+    Fatal { message: String },
 }
 
 #[cfg(test)]
@@ -125,6 +155,7 @@ mod tests {
     fn deserialize_render_message_with_box() {
         let json = r##"{
             "type": "render",
+            "frameId": 1,
             "root": {
                 "kind": "box",
                 "layout": { "x": 0, "y": 0, "width": 80, "height": 24 },
@@ -148,21 +179,24 @@ mod tests {
                 "children": []
             }
         }"##;
-        let msg: ProtocolMessage = serde_json::from_str(json).unwrap();
+        let msg: InMessage = serde_json::from_str(json).unwrap();
         match msg {
-            ProtocolMessage::Render { root } => match root {
-                WidgetNode::Box(b) => {
-                    assert_eq!(b.layout.width, 80.0);
-                    assert_eq!(b.padding.top, 1.0);
-                    assert!(matches!(
-                        b.border.style,
-                        Some(BorderStyleInner::Preset(ref s)) if s == "single"
-                    ));
-                    assert_eq!(b.background.as_deref(), Some("#1a1a2e"));
-                    assert_eq!(b.overflow, Overflow::Visible);
+            InMessage::Render { root, frame_id } => {
+                assert_eq!(frame_id, 1);
+                match root {
+                    WidgetNode::Box(b) => {
+                        assert_eq!(b.layout.width, 80.0);
+                        assert_eq!(b.padding.top, 1.0);
+                        assert!(matches!(
+                            b.border.style,
+                            Some(BorderStyleInner::Preset(ref s)) if s == "single"
+                        ));
+                        assert_eq!(b.background.as_deref(), Some("#1a1a2e"));
+                        assert_eq!(b.overflow, Overflow::Visible);
+                    }
+                    _ => panic!("expected box"),
                 }
-                _ => panic!("expected box"),
-            },
+            }
             _ => panic!("expected render message"),
         }
     }
@@ -171,6 +205,7 @@ mod tests {
     fn deserialize_text_node() {
         let json = r#"{
             "type": "render",
+            "frameId": 42,
             "root": {
                 "kind": "text",
                 "layout": { "x": 5, "y": 3, "width": 20, "height": 1 },
@@ -178,16 +213,19 @@ mod tests {
                 "wrap": "wrap"
             }
         }"#;
-        let msg: ProtocolMessage = serde_json::from_str(json).unwrap();
+        let msg: InMessage = serde_json::from_str(json).unwrap();
         match msg {
-            ProtocolMessage::Render { root } => match root {
-                WidgetNode::Text(t) => {
-                    assert_eq!(t.layout.x, 5.0);
-                    assert!(t.content.contains("world"));
-                    assert_eq!(t.wrap, "wrap");
+            InMessage::Render { root, frame_id } => {
+                assert_eq!(frame_id, 42);
+                match root {
+                    WidgetNode::Text(t) => {
+                        assert_eq!(t.layout.x, 5.0);
+                        assert!(t.content.contains("world"));
+                        assert_eq!(t.wrap, "wrap");
+                    }
+                    _ => panic!("expected text"),
                 }
-                _ => panic!("expected text"),
-            },
+            }
             _ => panic!("expected render message"),
         }
     }
@@ -196,6 +234,7 @@ mod tests {
     fn deserialize_custom_border_style() {
         let json = r#"{
             "type": "render",
+            "frameId": 0,
             "root": {
                 "kind": "box",
                 "layout": { "x": 0, "y": 0, "width": 10, "height": 3 },
@@ -217,9 +256,9 @@ mod tests {
                 "children": []
             }
         }"#;
-        let msg: ProtocolMessage = serde_json::from_str(json).unwrap();
+        let msg: InMessage = serde_json::from_str(json).unwrap();
         match msg {
-            ProtocolMessage::Render { root } => match root {
+            InMessage::Render { root, .. } => match root {
                 WidgetNode::Box(b) => {
                     assert!(matches!(b.border.style, Some(BorderStyleInner::Custom(_))));
                     assert_eq!(b.overflow, Overflow::Hidden);
@@ -234,6 +273,7 @@ mod tests {
     fn deserialize_null_border_style() {
         let json = r#"{
             "type": "render",
+            "frameId": 0,
             "root": {
                 "kind": "box",
                 "layout": { "x": 0, "y": 0, "width": 10, "height": 3 },
@@ -251,9 +291,9 @@ mod tests {
                 "children": []
             }
         }"#;
-        let msg: ProtocolMessage = serde_json::from_str(json).unwrap();
+        let msg: InMessage = serde_json::from_str(json).unwrap();
         match msg {
-            ProtocolMessage::Render { root } => match root {
+            InMessage::Render { root, .. } => match root {
                 WidgetNode::Box(b) => {
                     assert!(b.border.style.is_none());
                 }
@@ -266,9 +306,9 @@ mod tests {
     #[test]
     fn deserialize_error_message() {
         let json = r#"{"type":"error","message":"something broke","code":"E001"}"#;
-        let msg: ProtocolMessage = serde_json::from_str(json).unwrap();
+        let msg: InMessage = serde_json::from_str(json).unwrap();
         match msg {
-            ProtocolMessage::Error { message, code } => {
+            InMessage::Error { message, code } => {
                 assert_eq!(message, "something broke");
                 assert_eq!(code.as_deref(), Some("E001"));
             }
@@ -277,9 +317,30 @@ mod tests {
     }
 
     #[test]
+    fn deserialize_shutdown_message() {
+        let json = r#"{"type":"shutdown"}"#;
+        let msg: InMessage = serde_json::from_str(json).unwrap();
+        assert!(matches!(msg, InMessage::Shutdown));
+    }
+
+    #[test]
+    fn deserialize_resize_message() {
+        let json = r#"{"type":"resize","width":120,"height":40}"#;
+        let msg: InMessage = serde_json::from_str(json).unwrap();
+        match msg {
+            InMessage::Resize { width, height } => {
+                assert_eq!(width, 120);
+                assert_eq!(height, 40);
+            }
+            _ => panic!("expected resize"),
+        }
+    }
+
+    #[test]
     fn deserialize_nested_children() {
         let json = r#"{
             "type": "render",
+            "frameId": 7,
             "root": {
                 "kind": "box",
                 "layout": { "x": 0, "y": 0, "width": 80, "height": 24 },
@@ -313,17 +374,48 @@ mod tests {
                 ]
             }
         }"#;
-        let msg: ProtocolMessage = serde_json::from_str(json).unwrap();
+        let msg: InMessage = serde_json::from_str(json).unwrap();
         match msg {
-            ProtocolMessage::Render { root } => match root {
-                WidgetNode::Box(b) => {
-                    assert_eq!(b.children.len(), 2);
-                    assert!(matches!(&b.children[0], WidgetNode::Text(_)));
-                    assert!(matches!(&b.children[1], WidgetNode::Box(_)));
+            InMessage::Render { root, frame_id } => {
+                assert_eq!(frame_id, 7);
+                match root {
+                    WidgetNode::Box(b) => {
+                        assert_eq!(b.children.len(), 2);
+                        assert!(matches!(&b.children[0], WidgetNode::Text(_)));
+                        assert!(matches!(&b.children[1], WidgetNode::Box(_)));
+                    }
+                    _ => panic!("expected box"),
                 }
-                _ => panic!("expected box"),
-            },
+            }
             _ => panic!("expected render"),
         }
+    }
+
+    #[test]
+    fn serialize_out_message_ready() {
+        let msg = OutMessage::Ready;
+        let json = serde_json::to_string(&msg).unwrap();
+        let parsed: serde_json::Value = serde_json::from_str(&json).unwrap();
+        assert_eq!(parsed["type"], "ready");
+    }
+
+    #[test]
+    fn serialize_out_message_rendered() {
+        let msg = OutMessage::Rendered { frame_id: 99 };
+        let json = serde_json::to_string(&msg).unwrap();
+        let parsed: serde_json::Value = serde_json::from_str(&json).unwrap();
+        assert_eq!(parsed["type"], "rendered");
+        assert_eq!(parsed["frameId"], 99);
+    }
+
+    #[test]
+    fn serialize_out_message_error() {
+        let msg = OutMessage::Error {
+            message: "oops".to_string(),
+        };
+        let json = serde_json::to_string(&msg).unwrap();
+        let parsed: serde_json::Value = serde_json::from_str(&json).unwrap();
+        assert_eq!(parsed["type"], "error");
+        assert_eq!(parsed["message"], "oops");
     }
 }

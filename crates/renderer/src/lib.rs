@@ -3,6 +3,7 @@ pub mod borders;
 pub mod buffer;
 pub mod colors;
 pub mod diff;
+pub mod input;
 pub mod painter;
 pub mod protocol;
 pub mod terminal;

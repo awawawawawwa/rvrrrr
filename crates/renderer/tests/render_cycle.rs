@@ -1,12 +1,12 @@
 use tui_engine_renderer::buffer::Buffer;
 use tui_engine_renderer::diff::compute_diff;
 use tui_engine_renderer::painter::{clip::ClipRect, paint_tree};
-use tui_engine_renderer::protocol::ProtocolMessage;
+use tui_engine_renderer::protocol::InMessage;
 
 fn parse_and_render(json: &str, width: u16, height: u16) -> Buffer {
-    let msg: ProtocolMessage = serde_json::from_str(json).unwrap();
+    let msg: InMessage = serde_json::from_str(json).unwrap();
     let root = match msg {
-        ProtocolMessage::Render { root } => root,
+        InMessage::Render { root, .. } => root,
         _ => panic!("expected render message"),
     };
     let mut buf = Buffer::new(width, height);
@@ -19,6 +19,7 @@ fn parse_and_render(json: &str, width: u16, height: u16) -> Buffer {
 fn simple_text_renders_at_position() {
     let json = r#"{
         "type": "render",
+        "frameId": 1,
         "root": {
             "kind": "text",
             "layout": { "x": 5, "y": 2, "width": 13, "height": 1 },
@@ -37,6 +38,7 @@ fn simple_text_renders_at_position() {
 fn box_border_renders_correctly() {
     let json = r#"{
         "type": "render",
+        "frameId": 1,
         "root": {
             "kind": "box",
             "layout": { "x": 0, "y": 0, "width": 10, "height": 3 },
@@ -67,6 +69,7 @@ fn box_border_renders_correctly() {
 fn diff_detects_changes() {
     let json1 = r#"{
         "type": "render",
+        "frameId": 1,
         "root": {
             "kind": "text",
             "layout": { "x": 0, "y": 0, "width": 5, "height": 1 },
@@ -76,6 +79,7 @@ fn diff_detects_changes() {
     }"#;
     let json2 = r#"{
         "type": "render",
+        "frameId": 2,
         "root": {
             "kind": "text",
             "layout": { "x": 0, "y": 0, "width": 5, "height": 1 },
@@ -94,6 +98,7 @@ fn diff_detects_changes() {
 fn no_diff_for_identical_frames() {
     let json = r#"{
         "type": "render",
+        "frameId": 1,
         "root": {
             "kind": "text",
             "layout": { "x": 0, "y": 0, "width": 5, "height": 1 },
@@ -111,6 +116,7 @@ fn no_diff_for_identical_frames() {
 fn overflow_hidden_clips_children() {
     let json = r#"{
         "type": "render",
+        "frameId": 1,
         "root": {
             "kind": "box",
             "layout": { "x": 0, "y": 0, "width": 5, "height": 3 },
@@ -138,6 +144,7 @@ fn overflow_hidden_clips_children() {
 fn ansi_colored_text_sets_cell_fg() {
     let json = r#"{
         "type": "render",
+        "frameId": 1,
         "root": {
             "kind": "text",
             "layout": { "x": 0, "y": 0, "width": 20, "height": 1 },
@@ -161,6 +168,7 @@ fn ansi_colored_text_sets_cell_fg() {
 fn nested_box_with_border_and_text() {
     let json = r#"{
         "type": "render",
+        "frameId": 1,
         "root": {
             "kind": "box",
             "layout": { "x": 0, "y": 0, "width": 20, "height": 5 },
@@ -189,6 +197,7 @@ fn nested_box_with_border_and_text() {
 fn box_with_background_fills_cells() {
     let json = r##"{
         "type": "render",
+        "frameId": 1,
         "root": {
             "kind": "box",
             "layout": { "x": 2, "y": 1, "width": 4, "height": 2 },
@@ -218,6 +227,7 @@ fn emit_diff_roundtrip() {
 
     let json1 = r#"{
         "type": "render",
+        "frameId": 1,
         "root": {
             "kind": "text",
             "layout": { "x": 0, "y": 0, "width": 5, "height": 1 },
@@ -227,6 +237,7 @@ fn emit_diff_roundtrip() {
     }"#;
     let json2 = r#"{
         "type": "render",
+        "frameId": 2,
         "root": {
             "kind": "text",
             "layout": { "x": 0, "y": 0, "width": 5, "height": 1 },
