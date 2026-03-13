@@ -32,6 +32,9 @@ Next Plan: none (phase complete at 05-02)
 - src/bridge/ module complete: IpcRendererBridge class (ipc-child.ts), resolveBinaryPath (binary-resolver.ts), types (types.ts), public index (index.ts)
 - Bridge requirements BRDG-01, BRDG-03, BRDG-04 fulfilled
 - All bridge code type-checks cleanly with strict TypeScript
+- 05-01: Async tokio renderer with NDJSON IPC complete. InMessage/OutMessage enums, input.rs with crossterm→Ink key mapping, TTY detection, headless CI mode.
+- 05-01 commits: 4f6af1b (protocol+input), 32d0e4f (TTY detection), 7ac3043 (async main)
+- Requirements BRDG-02, PROT-05 fulfilled by 05-01
 
 ---
-*Last updated: 2026-03-13 after 05-02 execution*
+*Last updated: 2026-03-13 after 05-01 execution*

@@ -51,7 +51,7 @@
 
 **Goal:** Spawn the Rust renderer as a child process from Node.js with reliable bidirectional communication, lifecycle management, and render throttling.
 **Requirements:** BRDG-01, BRDG-02, BRDG-03, BRDG-04, PROT-05
-**Plans:** 1/3 plans executed
+**Plans:** 2/3 plans executed
 
 Plans:
 - [ ] 05-01-PLAN.md — Rust async refactor: extend protocol types, refactor main.rs to tokio with bidirectional IPC
@@ -106,7 +106,7 @@ P1 (Reconciler + Yoga)
 
 | Category | Count | Phase(s) |
 |----------|-------|----------|
-| Reconciler (RECON) | 5 | 1/3 | In Progress|  | 7 | P1 (6), P6 (1) |
+| Reconciler (RECON) | 5 | 2/3 | In Progress|  | 7 | P1 (6), P6 (1) |
 | Components (COMP) | 7 | P2 |
 | Hooks (HOOK) | 5 | P6 |
 | Render API (RAPI) | 9 | P6 |

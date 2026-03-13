@@ -59,7 +59,7 @@
 - [ ] **PROT-02**: Absolute coordinates pre-computed on JS side
 - [ ] **PROT-03**: Message framing (length-prefix or NDJSON)
 - [ ] **PROT-04**: Error message type for Rust → JS error propagation
-- [ ] **PROT-05**: Input event forwarding from Rust → JS for useInput
+- [x] **PROT-05**: Input event forwarding from Rust → JS for useInput
 
 ### Rust Renderer
 
@@ -77,7 +77,7 @@
 ### Bridge
 
 - [x] **BRDG-01**: Spawn Rust binary as child process from Node.js
-- [ ] **BRDG-02**: Stdin EOF detection — Rust exits when parent dies
+- [x] **BRDG-02**: Stdin EOF detection — Rust exits when parent dies
 - [x] **BRDG-03**: Graceful shutdown on SIGINT, SIGTERM, uncaughtException
 - [x] **BRDG-04**: Render throttling (configurable maxFps, default 30)
 
@@ -161,7 +161,7 @@
 | PROT-02 | Phase 3 | Pending |
 | PROT-03 | Phase 3 | Pending |
 | PROT-04 | Phase 3 | Pending |
-| PROT-05 | Phase 5 | Pending |
+| PROT-05 | Phase 5 | Complete |
 | RUST-01 | Phase 4 | Pending |
 | RUST-02 | Phase 4 | Pending |
 | RUST-03 | Phase 4 | Pending |
@@ -173,7 +173,7 @@
 | RUST-09 | Phase 4 | Pending |
 | RUST-10 | Phase 6 | Pending |
 | BRDG-01 | Phase 5 | Complete |
-| BRDG-02 | Phase 5 | Pending |
+| BRDG-02 | Phase 5 | Complete |
 | BRDG-03 | Phase 5 | Complete |
 | BRDG-04 | Phase 5 | Complete |
 | DIST-01 | Phase 7 | Pending |
