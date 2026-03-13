@@ -15,6 +15,7 @@
     "test:watch": "vitest"
   },
   "dependencies": {
+    "ansi-escapes": "^7.3.0",
     "ansi-styles": "^6.2.1",
     "cli-boxes": "^3.0.0",
     "cli-truncate": "^5.1.1",
