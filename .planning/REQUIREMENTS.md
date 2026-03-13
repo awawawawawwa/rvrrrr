@@ -48,10 +48,10 @@
 - [x] **RAPI-03**: Instance.unmount() with proper lifecycle state machine
 - [x] **RAPI-04**: Instance.waitUntilExit() returning Promise
 - [x] **RAPI-05**: Instance.clear() erasing rendered output
-- [ ] **RAPI-06**: Static component for permanent output above dynamic content
-- [ ] **RAPI-07**: renderToString(element) synchronous render
-- [ ] **RAPI-08**: measureElement(ref) returning {width, height}
-- [ ] **RAPI-09**: Console patching to prevent output corruption
+- [x] **RAPI-06**: Static component for permanent output above dynamic content
+- [x] **RAPI-07**: renderToString(element) synchronous render
+- [x] **RAPI-08**: measureElement(ref) returning {width, height}
+- [x] **RAPI-09**: Console patching to prevent output corruption
 
 ### Protocol
 
@@ -153,10 +153,10 @@
 | RAPI-03 | Phase 6 | Complete |
 | RAPI-04 | Phase 6 | Complete |
 | RAPI-05 | Phase 6 | Complete |
-| RAPI-06 | Phase 6 | Pending |
-| RAPI-07 | Phase 6 | Pending |
-| RAPI-08 | Phase 6 | Pending |
-| RAPI-09 | Phase 6 | Pending |
+| RAPI-06 | Phase 6 | Complete |
+| RAPI-07 | Phase 6 | Complete |
+| RAPI-08 | Phase 6 | Complete |
+| RAPI-09 | Phase 6 | Complete |
 | PROT-01 | Phase 3 | Pending |
 | PROT-02 | Phase 3 | Pending |
 | PROT-03 | Phase 3 | Pending |

@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-current_plan: 06-03 (complete)
+current_plan: 06-04 (complete)
 status: in_progress
-last_updated: "2026-03-13T21:53:50.941Z"
+last_updated: "2026-03-13T22:06:00.000Z"
 progress:
   total_phases: 7
   completed_phases: 1
   total_plans: 8
-  completed_plans: 6
-  percent: 75
-  bar: "[████████░░] 75%"
+  completed_plans: 7
+  percent: 88
+  bar: "[█████████░] 88%"
 ---
 
 # Project State: tui-engine
@@ -29,14 +29,14 @@ See: .gsd/PROJECT.md (updated 2026-03-11)
 | 3 | Widget Protocol | In Progress | 0/0 |
 | 4 | Rust Renderer | In Progress | 0/0 |
 | 5 | Bridge & Process Management | Complete | 3/3 complete |
-| 6 | API Parity — Hooks, Render API & Integration | In Progress | 2/5 complete |
+| 6 | API Parity — Hooks, Render API & Integration | In Progress | 4/5 complete |
 | 7 | Distribution & Packaging | Pending | 0/0 |
 
 ## Current Phase
 **Phase 6: API Parity — Hooks, Render API & Integration**
 Status: In Progress
-Current Plan: 06-03 (complete)
-Next Plan: 06-04
+Current Plan: 06-04 (complete)
+Next Plan: 06-05
 
 ## Decisions
 - Bridge encodes messages inline with JSON.stringify rather than extending Phase 3 encodeMessage — bridge adds frameId, resize, shutdown, rendered, fatal message types not in ProtocolMessage union
@@ -53,6 +53,8 @@ Next Plan: 06-04
 - [Phase 06]: Stable handler ref in useInput: useRef(handler) updated each render, effect depends only on [isActive, stdin, setRawMode]
 - [Phase 06]: @vitest-environment jsdom docblock per test file avoids globally switching non-hook tests to DOM
 - [Phase 06]: useFocus generates stable ids via module-level counter held in useRef — survives re-renders without effect re-run
+- [Phase 06]: flushSyncFromReconciler required for synchronous DOM commit in renderToString — updateContainerSync alone insufficient
+- [Phase 06]: internal_static prop stored directly on DOMElement node (not in attributes Map) — handled specially in reconciler createInstance/commitUpdate
 
 ## Memory
 - src/bridge/ module complete: IpcRendererBridge class (ipc-child.ts), resolveBinaryPath (binary-resolver.ts), types (types.ts), public index (index.ts)
@@ -77,6 +79,9 @@ Next Plan: 06-04
 - unmount() removes all listeners, shuts down bridge, resolves waitUntilExit promise
 - RAPI-01 through RAPI-05, LYOT-07, RUST-10 requirements marked complete
 - ansi-escapes added as dependency for Instance.clear()
+- 06-04: Output (character grid), renderToString (flushSyncFromReconciler pattern), measureElement, Static, patchConsole, render/index.ts all complete
+- RAPI-06 through RAPI-09 requirements marked complete
+- 27 tests passing across render and component suites (TDD: 19 new + 8 pre-existing)
 
 ---
-*Last updated: 2026-03-13 after 06-03 execution*
+*Last updated: 2026-03-13 after 06-04 execution*
