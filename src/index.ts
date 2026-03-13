@@ -1,73 +1,14 @@
-// Reconciler
-export {reconciler} from './reconciler/index.js';
+// Render API
+export {render, renderToString, measureElement, patchConsole} from './render/index.js';
+export type {RenderOptions, Instance} from './render/types.js';
 
-// DOM
-export {
-	createNode,
-	createTextNode,
-	appendChild,
-	removeChild,
-	insertBefore,
-	setAttribute,
-	setTextNodeValue,
-} from './dom/index.js';
-
-export type {
-	DOMElement,
-	TextNode,
-	DOMNode,
-	DOMNodeAttribute,
-	OutputTransformer,
-	NodeNames,
-} from './dom/index.js';
-
-// Layout
-export {
-	applyStyles,
-	measureText,
-	wrapText,
-	squashTextNodes,
-	getMaxWidth,
-} from './layout/index.js';
-
-export type {Styles} from './layout/index.js';
+// Hooks
+export {useInput, useApp, useStdin, useFocus, useFocusManager} from './hooks/index.js';
+export type {Key} from './hooks/types.js';
 
 // Components
-export {
-	Box,
-	Text,
-	Newline,
-	Spacer,
-	Transform,
-} from './components/index.js';
+export {Box, Text, Newline, Spacer, Transform, Static} from './components/index.js';
+export type {BoxProps, TextProps, NewlineProps, TransformProps, StaticProps} from './components/index.js';
 
-export type {
-	BoxProps,
-	TextProps,
-	NewlineProps,
-	TransformProps,
-} from './components/index.js';
-
-export {TextContext} from './components/context.js';
-
-// Protocol
-export {
-	serializeTree,
-	encodeMessage,
-	encodeMessages,
-	createErrorMessage,
-	ErrorCodes,
-} from './protocol/index.js';
-
-export type {
-	WidgetNode,
-	BoxNode,
-	TextNode as ProtocolTextNode,
-	Layout,
-	Padding,
-	Border,
-	BoxStyleWire,
-	RenderMessage,
-	ErrorMessage,
-	ProtocolMessage,
-} from './protocol/index.js';
+// Types (re-export useful DOM types for measureElement refs)
+export type {DOMElement} from './dom/types.js';
