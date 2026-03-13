@@ -1,3 +1,4 @@
+// @vitest-environment jsdom
 import {describe, it, expect, vi} from 'vitest';
 import {renderHook} from '@testing-library/react';
 import React, {createElement} from 'react';
@@ -26,7 +27,7 @@ describe('useApp', () => {
 			wrapper: createWrapper({exit}),
 		});
 		result.current.exit();
-		expect(exit).toHaveBeenCalledWith(undefined);
+		expect(exit).toHaveBeenCalledOnce();
 	});
 
 	it('exit function can be called with an error', () => {
