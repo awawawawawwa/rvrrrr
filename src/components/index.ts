@@ -7,3 +7,5 @@ export type {NewlineProps} from './Newline.js';
 export {default as Spacer} from './Spacer.js';
 export {default as Transform} from './Transform.js';
 export type {TransformProps} from './Transform.js';
+export {default as Static} from './Static.js';
+export type {StaticProps} from './Static.js';

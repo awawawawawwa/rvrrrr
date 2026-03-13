@@ -88,8 +88,17 @@ const hostConfig = {
 			node.internal_transform = props.internal_transform as OutputTransformer;
 		}
 
+		if (props.internal_static) {
+			node.internal_static = props.internal_static as boolean;
+		}
+
 		for (const [key, value] of Object.entries(props)) {
-			if (key === 'children' || key === 'style' || key === 'internal_transform') {
+			if (
+				key === 'children' ||
+				key === 'style' ||
+				key === 'internal_transform' ||
+				key === 'internal_static'
+			) {
 				continue;
 			}
 
@@ -156,8 +165,17 @@ const hostConfig = {
 		node.internal_transform =
 			newProps.internal_transform as OutputTransformer | undefined;
 
+		if ('internal_static' in newProps) {
+			node.internal_static = newProps.internal_static as boolean | undefined;
+		}
+
 		for (const [key, value] of Object.entries(newProps)) {
-			if (key === 'children' || key === 'style' || key === 'internal_transform') {
+			if (
+				key === 'children' ||
+				key === 'style' ||
+				key === 'internal_transform' ||
+				key === 'internal_static'
+			) {
 				continue;
 			}
 

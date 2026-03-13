@@ -4,6 +4,7 @@ import {type OutputTransformer} from '../dom/types.js';
 type InkElementProps = {
 	style?: Styles;
 	internal_transform?: OutputTransformer;
+	internal_static?: boolean;
 	children?: React.ReactNode;
 };
 
