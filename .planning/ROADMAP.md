@@ -68,6 +68,14 @@ Plans:
 
 **Goal:** Implement the full Ink-compatible public API surface — render() entry point, all five hooks, terminal resize handling, and remaining integration points — wired end-to-end through the bridge.
 **Requirements:** HOOK-01, HOOK-02, HOOK-03, HOOK-04, HOOK-05, RAPI-01, RAPI-02, RAPI-03, RAPI-04, RAPI-05, RAPI-06, RAPI-07, RAPI-08, RAPI-09, LYOT-07, RUST-10
+**Plans:** 5 plans
+
+Plans:
+- [ ] 06-01-PLAN.md — Contexts, Key type, and parseKeypress escape sequence parser
+- [ ] 06-02-PLAN.md — All five hooks (useInput, useApp, useStdin, useFocus, useFocusManager)
+- [ ] 06-03-PLAN.md — render() entry point, Instance lifecycle, terminal resize wiring
+- [ ] 06-04-PLAN.md — Static component, renderToString, measureElement, patchConsole
+- [ ] 06-05-PLAN.md — Public API index wiring and full verification
 
 ### Success Criteria
 1. render(element, options?) returns an Instance with working rerender(), unmount(), waitUntilExit(), and clear() methods matching Ink's lifecycle state machine
