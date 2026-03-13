@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-current_plan: 06-04 (complete)
+current_plan: 06-05 (complete)
 status: in_progress
-last_updated: "2026-03-13T22:06:00.000Z"
+last_updated: "2026-03-13T22:12:00.000Z"
 progress:
   total_phases: 7
   completed_phases: 1
   total_plans: 8
-  completed_plans: 7
-  percent: 88
-  bar: "[█████████░] 88%"
+  completed_plans: 8
+  percent: 100
+  bar: "[██████████] 100%"
 ---
 
 # Project State: tui-engine
@@ -29,14 +29,14 @@ See: .gsd/PROJECT.md (updated 2026-03-11)
 | 3 | Widget Protocol | In Progress | 0/0 |
 | 4 | Rust Renderer | In Progress | 0/0 |
 | 5 | Bridge & Process Management | Complete | 3/3 complete |
-| 6 | API Parity — Hooks, Render API & Integration | In Progress | 4/5 complete |
+| 6 | API Parity — Hooks, Render API & Integration | Complete | 5/5 complete |
 | 7 | Distribution & Packaging | Pending | 0/0 |
 
 ## Current Phase
 **Phase 6: API Parity — Hooks, Render API & Integration**
-Status: In Progress
-Current Plan: 06-04 (complete)
-Next Plan: 06-05
+Status: Complete
+Current Plan: 06-05 (complete)
+Next Plan: Phase 7 (Distribution & Packaging)
 
 ## Decisions
 - Bridge encodes messages inline with JSON.stringify rather than extending Phase 3 encodeMessage — bridge adds frameId, resize, shutdown, rendered, fatal message types not in ProtocolMessage union
@@ -55,6 +55,7 @@ Next Plan: 06-05
 - [Phase 06]: useFocus generates stable ids via module-level counter held in useRef — survives re-renders without effect re-run
 - [Phase 06]: flushSyncFromReconciler required for synchronous DOM commit in renderToString — updateContainerSync alone insufficient
 - [Phase 06]: internal_static prop stored directly on DOMElement node (not in attributes Map) — handled specially in reconciler createInstance/commitUpdate
+- [Phase 06-05]: src/index.ts replaced with consumer-facing public API barrel — internal index previously exported reconciler/DOM/protocol internals, now exports only the Ink-compatible public surface
 
 ## Memory
 - src/bridge/ module complete: IpcRendererBridge class (ipc-child.ts), resolveBinaryPath (binary-resolver.ts), types (types.ts), public index (index.ts)
@@ -82,6 +83,9 @@ Next Plan: 06-05
 - 06-04: Output (character grid), renderToString (flushSyncFromReconciler pattern), measureElement, Static, patchConsole, render/index.ts all complete
 - RAPI-06 through RAPI-09 requirements marked complete
 - 27 tests passing across render and component suites (TDD: 19 new + 8 pre-existing)
+- 06-05: src/index.ts wired as public API barrel — 164/164 tests pass, tsc --noEmit clean
+- RAPI-01, RAPI-06, RAPI-07 requirements marked complete via 06-05
+- Phase 6 COMPLETE: full Ink-compatible API parity achieved
 
 ---
-*Last updated: 2026-03-13 after 06-04 execution*
+*Last updated: 2026-03-13 after 06-05 execution*
