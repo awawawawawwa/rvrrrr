@@ -68,7 +68,7 @@ Plans:
 
 **Goal:** Implement the full Ink-compatible public API surface — render() entry point, all five hooks, terminal resize handling, and remaining integration points — wired end-to-end through the bridge.
 **Requirements:** HOOK-01, HOOK-02, HOOK-03, HOOK-04, HOOK-05, RAPI-01, RAPI-02, RAPI-03, RAPI-04, RAPI-05, RAPI-06, RAPI-07, RAPI-08, RAPI-09, LYOT-07, RUST-10
-**Plans:** 2/5 plans executed
+**Plans:** 3/5 plans executed
 
 Plans:
 - [ ] 06-01-PLAN.md — Contexts, Key type, and parseKeypress escape sequence parser

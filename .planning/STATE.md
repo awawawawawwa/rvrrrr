@@ -4,29 +4,14 @@ milestone: v1.0
 milestone_name: milestone
 current_plan: 06-03 (complete)
 status: in_progress
-last_updated: "2026-03-13T21:53:40.415Z"
+last_updated: "2026-03-13T21:53:50.941Z"
 progress:
   total_phases: 7
   completed_phases: 1
   total_plans: 8
   completed_plans: 6
   percent: 75
----
-
----
-gsd_state_version: 1.0
-milestone: v1.0
-milestone_name: milestone
-current_plan: 06-03 (complete)
-status: in_progress
-last_updated: "2026-03-13T21:52:58.966Z"
-progress:
-  [████████░░] 75%
-  completed_phases: 1
-  total_plans: 8
-  completed_plans: 5
-  percent: 63
-  bar: "[██████░░░░] 63%"
+  bar: "[████████░░] 75%"
 ---
 
 # Project State: tui-engine
@@ -65,6 +50,9 @@ Next Plan: 06-04
 - [Phase 06]: parseKeypress accepts Buffer (stdin 'data' event type) and converts with toString('utf8') internally; CSI modifier table: param2=2 shift, 3 meta, 5 ctrl
 - [Phase 06-03]: render() entry point: calculateLayout inline, serializeTree.root passed to enqueueRender, FocusManager imperative pattern
 - [Phase 06-03]: createContainer cast as any — @types/react-reconciler arg7 typing mismatch with React 19
+- [Phase 06]: Stable handler ref in useInput: useRef(handler) updated each render, effect depends only on [isActive, stdin, setRawMode]
+- [Phase 06]: @vitest-environment jsdom docblock per test file avoids globally switching non-hook tests to DOM
+- [Phase 06]: useFocus generates stable ids via module-level counter held in useRef — survives re-renders without effect re-run
 
 ## Memory
 - src/bridge/ module complete: IpcRendererBridge class (ipc-child.ts), resolveBinaryPath (binary-resolver.ts), types (types.ts), public index (index.ts)
