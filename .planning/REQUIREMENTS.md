@@ -76,10 +76,10 @@
 
 ### Bridge
 
-- [ ] **BRDG-01**: Spawn Rust binary as child process from Node.js
+- [x] **BRDG-01**: Spawn Rust binary as child process from Node.js
 - [ ] **BRDG-02**: Stdin EOF detection — Rust exits when parent dies
-- [ ] **BRDG-03**: Graceful shutdown on SIGINT, SIGTERM, uncaughtException
-- [ ] **BRDG-04**: Render throttling (configurable maxFps, default 30)
+- [x] **BRDG-03**: Graceful shutdown on SIGINT, SIGTERM, uncaughtException
+- [x] **BRDG-04**: Render throttling (configurable maxFps, default 30)
 
 ### Distribution
 
@@ -172,10 +172,10 @@
 | RUST-08 | Phase 4 | Pending |
 | RUST-09 | Phase 4 | Pending |
 | RUST-10 | Phase 6 | Pending |
-| BRDG-01 | Phase 5 | Pending |
+| BRDG-01 | Phase 5 | Complete |
 | BRDG-02 | Phase 5 | Pending |
-| BRDG-03 | Phase 5 | Pending |
-| BRDG-04 | Phase 5 | Pending |
+| BRDG-03 | Phase 5 | Complete |
+| BRDG-04 | Phase 5 | Complete |
 | DIST-01 | Phase 7 | Pending |
 | DIST-02 | Phase 7 | Pending |
 | DIST-03 | Phase 7 | Pending |
