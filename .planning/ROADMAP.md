@@ -51,6 +51,12 @@
 
 **Goal:** Spawn the Rust renderer as a child process from Node.js with reliable bidirectional communication, lifecycle management, and render throttling.
 **Requirements:** BRDG-01, BRDG-02, BRDG-03, BRDG-04, PROT-05
+**Plans:** 3 plans
+
+Plans:
+- [ ] 05-01-PLAN.md — Rust async refactor: extend protocol types, refactor main.rs to tokio with bidirectional IPC
+- [ ] 05-02-PLAN.md — JS bridge: types, binary resolver, IpcRendererBridge with lifecycle and throttling
+- [ ] 05-03-PLAN.md — Integration tests: bridge + renderer end-to-end verification
 
 ### Success Criteria
 1. Node.js spawns the Rust binary as a child process, sends serialized widget frames over stdin, and receives input events back over stdout
