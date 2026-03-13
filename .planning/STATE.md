@@ -2,14 +2,31 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-current_plan: 06-01 (complete)
+current_plan: 06-03 (complete)
 status: in_progress
-last_updated: "2026-03-13T21:47:11.039Z"
+last_updated: "2026-03-13T21:53:40.415Z"
 progress:
   total_phases: 7
   completed_phases: 1
   total_plans: 8
-  completed_plans: 4
+  completed_plans: 6
+  percent: 75
+---
+
+---
+gsd_state_version: 1.0
+milestone: v1.0
+milestone_name: milestone
+current_plan: 06-03 (complete)
+status: in_progress
+last_updated: "2026-03-13T21:52:58.966Z"
+progress:
+  [████████░░] 75%
+  completed_phases: 1
+  total_plans: 8
+  completed_plans: 5
+  percent: 63
+  bar: "[██████░░░░] 63%"
 ---
 
 # Project State: tui-engine
@@ -27,14 +44,14 @@ See: .gsd/PROJECT.md (updated 2026-03-11)
 | 3 | Widget Protocol | In Progress | 0/0 |
 | 4 | Rust Renderer | In Progress | 0/0 |
 | 5 | Bridge & Process Management | Complete | 3/3 complete |
-| 6 | API Parity — Hooks, Render API & Integration | In Progress | 1/5 complete |
+| 6 | API Parity — Hooks, Render API & Integration | In Progress | 2/5 complete |
 | 7 | Distribution & Packaging | Pending | 0/0 |
 
 ## Current Phase
 **Phase 6: API Parity — Hooks, Render API & Integration**
 Status: In Progress
-Current Plan: 06-01 (complete)
-Next Plan: 06-02
+Current Plan: 06-03 (complete)
+Next Plan: 06-04
 
 ## Decisions
 - Bridge encodes messages inline with JSON.stringify rather than extending Phase 3 encodeMessage — bridge adds frameId, resize, shutdown, rendered, fatal message types not in ProtocolMessage union
@@ -46,6 +63,8 @@ Next Plan: 06-02
 - [Phase 06]: Named createContext import used instead of default React.createContext — required by tsconfig moduleResolution:bundler
 - [Phase 06]: createSetRawMode exported as factory function — keeps ref-count state isolated per stdin stream, supports multiple render() calls in tests
 - [Phase 06]: parseKeypress accepts Buffer (stdin 'data' event type) and converts with toString('utf8') internally; CSI modifier table: param2=2 shift, 3 meta, 5 ctrl
+- [Phase 06-03]: render() entry point: calculateLayout inline, serializeTree.root passed to enqueueRender, FocusManager imperative pattern
+- [Phase 06-03]: createContainer cast as any — @types/react-reconciler arg7 typing mismatch with React 19
 
 ## Memory
 - src/bridge/ module complete: IpcRendererBridge class (ipc-child.ts), resolveBinaryPath (binary-resolver.ts), types (types.ts), public index (index.ts)
@@ -64,6 +83,12 @@ Next Plan: 06-02
 - src/hooks/__tests__/parse-keypress.test.ts: 17 passing tests
 - All Phase 6 contexts type-check cleanly; npx tsc --noEmit passes
 - HOOK-01 through HOOK-05 requirements marked complete
+- src/render/ created: types.ts (RenderOptions, Instance), render.ts (render() entry point), __tests__/render.test.ts (8 tests)
+- render() wires reconciler -> Yoga layout -> serializeTree -> bridge.enqueueRender
+- resize event on stdout triggers re-layout + re-render + bridge.sendResize
+- unmount() removes all listeners, shuts down bridge, resolves waitUntilExit promise
+- RAPI-01 through RAPI-05, LYOT-07, RUST-10 requirements marked complete
+- ansi-escapes added as dependency for Instance.clear()
 
 ---
-*Last updated: 2026-03-13 after 06-01 execution*
+*Last updated: 2026-03-13 after 06-03 execution*

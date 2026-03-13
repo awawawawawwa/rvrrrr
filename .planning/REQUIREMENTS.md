@@ -21,7 +21,7 @@
 - [ ] **LYOT-04**: Spacing props: margin (all sides + shorthand), padding (all sides + shorthand), gap/columnGap/rowGap
 - [ ] **LYOT-05**: Position: absolute and relative positioning
 - [ ] **LYOT-06**: Text measurement callback using string-width (handles Unicode, emoji, ANSI stripping)
-- [ ] **LYOT-07**: Terminal resize triggers re-layout with new dimensions
+- [x] **LYOT-07**: Terminal resize triggers re-layout with new dimensions
 
 ### Components
 
@@ -43,11 +43,11 @@
 
 ### Render API
 
-- [ ] **RAPI-01**: render(element, options?) entry point with stdout, stdin, stderr, debug, exitOnCtrlC, patchConsole options
-- [ ] **RAPI-02**: Instance.rerender(element)
-- [ ] **RAPI-03**: Instance.unmount() with proper lifecycle state machine
-- [ ] **RAPI-04**: Instance.waitUntilExit() returning Promise
-- [ ] **RAPI-05**: Instance.clear() erasing rendered output
+- [x] **RAPI-01**: render(element, options?) entry point with stdout, stdin, stderr, debug, exitOnCtrlC, patchConsole options
+- [x] **RAPI-02**: Instance.rerender(element)
+- [x] **RAPI-03**: Instance.unmount() with proper lifecycle state machine
+- [x] **RAPI-04**: Instance.waitUntilExit() returning Promise
+- [x] **RAPI-05**: Instance.clear() erasing rendered output
 - [ ] **RAPI-06**: Static component for permanent output above dynamic content
 - [ ] **RAPI-07**: renderToString(element) synchronous render
 - [ ] **RAPI-08**: measureElement(ref) returning {width, height}
@@ -72,7 +72,7 @@
 - [ ] **RUST-07**: Overflow clipping for overflow: hidden
 - [ ] **RUST-08**: Raw mode enter/exit with crash-safe restoration (panic hook, signal handlers)
 - [ ] **RUST-09**: Alternate screen buffer management
-- [ ] **RUST-10**: Terminal resize detection and re-render
+- [x] **RUST-10**: Terminal resize detection and re-render
 
 ### Bridge
 
@@ -135,7 +135,7 @@
 | LYOT-04 | Phase 1 | Pending |
 | LYOT-05 | Phase 1 | Pending |
 | LYOT-06 | Phase 1 | Pending |
-| LYOT-07 | Phase 6 | Pending |
+| LYOT-07 | Phase 6 | Complete |
 | COMP-01 | Phase 2 | Pending |
 | COMP-02 | Phase 2 | Pending |
 | COMP-03 | Phase 2 | Pending |
@@ -148,11 +148,11 @@
 | HOOK-03 | Phase 6 | Complete |
 | HOOK-04 | Phase 6 | Complete |
 | HOOK-05 | Phase 6 | Complete |
-| RAPI-01 | Phase 6 | Pending |
-| RAPI-02 | Phase 6 | Pending |
-| RAPI-03 | Phase 6 | Pending |
-| RAPI-04 | Phase 6 | Pending |
-| RAPI-05 | Phase 6 | Pending |
+| RAPI-01 | Phase 6 | Complete |
+| RAPI-02 | Phase 6 | Complete |
+| RAPI-03 | Phase 6 | Complete |
+| RAPI-04 | Phase 6 | Complete |
+| RAPI-05 | Phase 6 | Complete |
 | RAPI-06 | Phase 6 | Pending |
 | RAPI-07 | Phase 6 | Pending |
 | RAPI-08 | Phase 6 | Pending |
@@ -171,7 +171,7 @@
 | RUST-07 | Phase 4 | Pending |
 | RUST-08 | Phase 4 | Pending |
 | RUST-09 | Phase 4 | Pending |
-| RUST-10 | Phase 6 | Pending |
+| RUST-10 | Phase 6 | Complete |
 | BRDG-01 | Phase 5 | Complete |
 | BRDG-02 | Phase 5 | Complete |
 | BRDG-03 | Phase 5 | Complete |
