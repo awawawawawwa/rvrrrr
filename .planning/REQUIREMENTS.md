@@ -35,11 +35,11 @@
 
 ### Hooks
 
-- [ ] **HOOK-01**: useInput with full key parsing (arrows, return, escape, ctrl, shift, tab, backspace, delete, meta)
-- [ ] **HOOK-02**: useApp returning exit(error?)
-- [ ] **HOOK-03**: useStdin returning stdin, isRawModeSupported, setRawMode
-- [ ] **HOOK-04**: useFocus with autoFocus, isActive, id options
-- [ ] **HOOK-05**: useFocusManager with enableFocus, disableFocus, focusNext, focusPrevious, focus(id)
+- [x] **HOOK-01**: useInput with full key parsing (arrows, return, escape, ctrl, shift, tab, backspace, delete, meta)
+- [x] **HOOK-02**: useApp returning exit(error?)
+- [x] **HOOK-03**: useStdin returning stdin, isRawModeSupported, setRawMode
+- [x] **HOOK-04**: useFocus with autoFocus, isActive, id options
+- [x] **HOOK-05**: useFocusManager with enableFocus, disableFocus, focusNext, focusPrevious, focus(id)
 
 ### Render API
 
@@ -143,11 +143,11 @@
 | COMP-05 | Phase 2 | Pending |
 | COMP-06 | Phase 2 | Pending |
 | COMP-07 | Phase 2 | Pending |
-| HOOK-01 | Phase 6 | Pending |
-| HOOK-02 | Phase 6 | Pending |
-| HOOK-03 | Phase 6 | Pending |
-| HOOK-04 | Phase 6 | Pending |
-| HOOK-05 | Phase 6 | Pending |
+| HOOK-01 | Phase 6 | Complete |
+| HOOK-02 | Phase 6 | Complete |
+| HOOK-03 | Phase 6 | Complete |
+| HOOK-04 | Phase 6 | Complete |
+| HOOK-05 | Phase 6 | Complete |
 | RAPI-01 | Phase 6 | Pending |
 | RAPI-02 | Phase 6 | Pending |
 | RAPI-03 | Phase 6 | Pending |

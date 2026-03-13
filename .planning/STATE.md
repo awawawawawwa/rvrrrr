@@ -1,9 +1,23 @@
+---
+gsd_state_version: 1.0
+milestone: v1.0
+milestone_name: milestone
+current_plan: 06-01 (complete)
+status: in_progress
+last_updated: "2026-03-13T21:47:11.039Z"
+progress:
+  total_phases: 7
+  completed_phases: 1
+  total_plans: 8
+  completed_plans: 4
+---
+
 # Project State: tui-engine
 
 ## Project Reference
 See: .gsd/PROJECT.md (updated 2026-03-11)
 **Core value:** Ink-compatible DX with Rust-level rendering performance
-**Current focus:** Phase 5
+**Current focus:** Phase 6
 
 ## Progress
 | Phase | Name | Status | Plans |
@@ -13,14 +27,14 @@ See: .gsd/PROJECT.md (updated 2026-03-11)
 | 3 | Widget Protocol | In Progress | 0/0 |
 | 4 | Rust Renderer | In Progress | 0/0 |
 | 5 | Bridge & Process Management | Complete | 3/3 complete |
-| 6 | API Parity — Hooks, Render API & Integration | Pending | 0/0 |
+| 6 | API Parity — Hooks, Render API & Integration | In Progress | 1/5 complete |
 | 7 | Distribution & Packaging | Pending | 0/0 |
 
 ## Current Phase
-**Phase 5: Bridge & Process Management**
-Status: Complete
-Current Plan: 05-03 (complete)
-Next Plan: Phase 6
+**Phase 6: API Parity — Hooks, Render API & Integration**
+Status: In Progress
+Current Plan: 06-01 (complete)
+Next Plan: 06-02
 
 ## Decisions
 - Bridge encodes messages inline with JSON.stringify rather than extending Phase 3 encodeMessage — bridge adds frameId, resize, shutdown, rendered, fatal message types not in ProtocolMessage union
@@ -29,6 +43,9 @@ Next Plan: Phase 6
 - Kill timeout of 2s after shutdown message before SIGKILL
 - vitest.config.ts extended to include src/**/__tests__/**/*.test.{ts,tsx} so co-located tests are discovered
 - Poll loop (50ms interval) used for ack verification in integration tests to avoid exposing new EventEmitter API
+- [Phase 06]: Named createContext import used instead of default React.createContext — required by tsconfig moduleResolution:bundler
+- [Phase 06]: createSetRawMode exported as factory function — keeps ref-count state isolated per stdin stream, supports multiple render() calls in tests
+- [Phase 06]: parseKeypress accepts Buffer (stdin 'data' event type) and converts with toString('utf8') internally; CSI modifier table: param2=2 shift, 3 meta, 5 ctrl
 
 ## Memory
 - src/bridge/ module complete: IpcRendererBridge class (ipc-child.ts), resolveBinaryPath (binary-resolver.ts), types (types.ts), public index (index.ts)
@@ -40,5 +57,13 @@ Next Plan: Phase 6
 - 05-02: IpcRendererBridge + resolveBinaryPath + bridge types complete.
 - 05-03: Integration tests passing (12 total). Binary headless mode ensures CI compatibility.
 
+## Phase 6 Memory
+- src/contexts/ created: app-context.ts (AppContext), stdin-context.ts (StdinContext + createSetRawMode), focus-context.ts (FocusContext), index.ts re-exports
+- src/hooks/types.ts: Key type with 14 boolean fields matching Ink's interface
+- src/hooks/parse-keypress.ts: full escape sequence parser — CSI, meta prefix, ctrl+a-z, return, tab, backspace, escape, plain chars
+- src/hooks/__tests__/parse-keypress.test.ts: 17 passing tests
+- All Phase 6 contexts type-check cleanly; npx tsc --noEmit passes
+- HOOK-01 through HOOK-05 requirements marked complete
+
 ---
-*Last updated: 2026-03-13 after 05-03 execution*
+*Last updated: 2026-03-13 after 06-01 execution*
