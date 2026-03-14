@@ -1,5 +1,5 @@
 /**
- * Integration tests for IpcRendererBridge against the real tui-engine-renderer binary.
+ * Integration tests for IpcRendererBridge against the real rvrrrr-renderer binary.
  *
  * These tests require `cargo build` to have been run first. They spawn the actual
  * Rust binary. The binary supports headless mode (no TTY), so all tests run in CI.
@@ -15,8 +15,8 @@ import type {WidgetNode} from '../../protocol/types.js';
 
 const binaryName =
 	process.platform === 'win32'
-		? 'tui-engine-renderer.exe'
-		: 'tui-engine-renderer';
+		? 'rvrrrr-renderer.exe'
+		: 'rvrrrr-renderer';
 
 const projectRoot = join(import.meta.dirname, '..', '..', '..');
 const debugBinaryPath = join(
@@ -82,7 +82,7 @@ beforeAll(() => {
 
 	// Build if binary not present or cargo is available
 	if (!existsSync(debugBinaryPath)) {
-		console.log('Building tui-engine-renderer (this may take a moment)...');
+		console.log('Building rvrrrr-renderer (this may take a moment)...');
 		execSync('cargo build', {
 			cwd: cratesRendererDir,
 			stdio: 'inherit',
