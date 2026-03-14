@@ -1,15 +1,13 @@
 use std::io::Write;
 
-use futures::StreamExt;
 use tokio::io::{AsyncBufReadExt, BufReader};
 
-use tui_engine_renderer::ansi::emit_diff;
-use tui_engine_renderer::buffer::Buffer;
-use tui_engine_renderer::diff::compute_diff;
-use tui_engine_renderer::input::map_crossterm_event;
-use tui_engine_renderer::painter::{clip::ClipRect, paint_tree};
-use tui_engine_renderer::protocol::{InMessage, OutMessage};
-use tui_engine_renderer::terminal::{self, Terminal};
+use rvrrrr_renderer::ansi::emit_diff;
+use rvrrrr_renderer::buffer::Buffer;
+use rvrrrr_renderer::diff::compute_diff;
+use rvrrrr_renderer::painter::{clip::ClipRect, paint_tree};
+use rvrrrr_renderer::protocol::{InMessage, OutMessage};
+use rvrrrr_renderer::terminal::{self, Terminal};
 
 /// Write a single `OutMessage` as an NDJSON line to `stdout`.
 ///
@@ -39,7 +37,6 @@ async fn main() {
 
 async fn run() -> std::io::Result<()> {
     let mut term = Terminal::init()?;
-    let is_tty = term.is_tty;
 
     // Determine terminal size. In headless mode crossterm may not be able to
     // query the size, so fall back to a sensible default.
@@ -55,104 +52,39 @@ async fn run() -> std::io::Result<()> {
     let stdin = tokio::io::stdin();
     let mut lines = BufReader::new(stdin).lines();
 
-    if is_tty {
-        // Full bidirectional mode: multiplex stdin NDJSON + crossterm events.
-        let mut event_stream = crossterm::event::EventStream::new();
-
-        loop {
-            tokio::select! {
-                // Branch 1: next NDJSON line from parent on stdin.
-                line_result = lines.next_line() => {
-                    match line_result {
-                        Ok(Some(line)) => {
-                            if line.is_empty() {
-                                continue;
-                            }
-                            match serde_json::from_str::<InMessage>(&line) {
-                                Ok(msg) => {
-                                    if !handle_in_message(
-                                        msg,
-                                        &mut term,
-                                        &mut current,
-                                        &mut previous,
-                                    )? {
-                                        break; // Shutdown requested
-                                    }
-                                }
-                                Err(e) => {
-                                    eprintln!("tui-engine-renderer: JSON parse error: {e}");
-                                    let _ = write_ndjson(&OutMessage::Error {
-                                        message: format!("JSON parse error: {e}"),
-                                    });
-                                }
-                            }
-                        }
-                        Ok(None) => {
-                            // stdin EOF — parent process has exited (BRDG-02).
-                            eprintln!("tui-engine-renderer: stdin EOF, exiting");
-                            break;
-                        }
-                        Err(e) => {
-                            eprintln!("tui-engine-renderer: stdin read error: {e}");
+    // Stdin NDJSON loop — Rust is only the renderer, input handling stays in JS.
+    loop {
+        match lines.next_line().await {
+            Ok(Some(line)) => {
+                if line.is_empty() {
+                    continue;
+                }
+                match serde_json::from_str::<InMessage>(&line) {
+                    Ok(msg) => {
+                        if !handle_in_message(
+                            msg,
+                            &mut term,
+                            &mut current,
+                            &mut previous,
+                        )? {
                             break;
                         }
                     }
-                }
-
-                // Branch 2: crossterm terminal key/mouse events.
-                event_result = event_stream.next() => {
-                    match event_result {
-                        Some(Ok(event)) => {
-                            if let Some(input_event) = map_crossterm_event(event) {
-                                let _ = write_ndjson(&OutMessage::Input { event: input_event });
-                            }
-                        }
-                        Some(Err(e)) => {
-                            eprintln!("tui-engine-renderer: crossterm event error: {e}");
-                        }
-                        None => {
-                            // Event stream ended.
-                            break;
-                        }
+                    Err(e) => {
+                        eprintln!("tui-engine-renderer: JSON parse error: {e}");
+                        let _ = write_ndjson(&OutMessage::Error {
+                            message: format!("JSON parse error: {e}"),
+                        });
                     }
                 }
             }
-        }
-    } else {
-        // Headless mode: stdin NDJSON only — no terminal event stream.
-        loop {
-            match lines.next_line().await {
-                Ok(Some(line)) => {
-                    if line.is_empty() {
-                        continue;
-                    }
-                    match serde_json::from_str::<InMessage>(&line) {
-                        Ok(msg) => {
-                            if !handle_in_message(
-                                msg,
-                                &mut term,
-                                &mut current,
-                                &mut previous,
-                            )? {
-                                break;
-                            }
-                        }
-                        Err(e) => {
-                            eprintln!("tui-engine-renderer: JSON parse error: {e}");
-                            let _ = write_ndjson(&OutMessage::Error {
-                                message: format!("JSON parse error: {e}"),
-                            });
-                        }
-                    }
-                }
-                Ok(None) => {
-                    eprintln!("tui-engine-renderer: stdin EOF, exiting");
-                    break;
-                }
-                Err(e) => {
-                    eprintln!("tui-engine-renderer: stdin read error: {e}");
-                    break;
-                }
+            Ok(None) => {
+                eprintln!("tui-engine-renderer: stdin EOF, exiting");
+                break;
+            }
+            Err(e) => {
+                eprintln!("tui-engine-renderer: stdin read error: {e}");
+                break;
             }
         }
     }
