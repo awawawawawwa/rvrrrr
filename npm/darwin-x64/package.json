@@ -1,0 +1,9 @@
+{
+  "name": "@rvrrrr/renderer-darwin-x64",
+  "version": "0.1.0",
+  "description": "Prebuilt rvrrrr-renderer binary for macOS x64 (Intel)",
+  "os": ["darwin"],
+  "cpu": ["x64"],
+  "files": ["rvrrrr-renderer"],
+  "license": "MIT"
+}

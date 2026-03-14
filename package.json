@@ -1,13 +1,16 @@
 {
-  "name": "tui-engine",
+  "name": "@rvrrrr/core",
   "version": "0.1.0",
   "type": "module",
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
-      "default": "./dist/index.js"
+      "import": { "types": "./dist/index.d.ts", "default": "./dist/index.js" },
+      "require": { "types": "./dist/index.d.cts", "default": "./dist/index.cjs" }
     }
   },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "scripts": {
     "build": "tsup",
     "typecheck": "tsc --noEmit",
@@ -42,6 +45,15 @@
     "tsup": "^8.0.0",
     "typescript": "^5.8.0",
     "vitest": "^3.0.0"
+  },
+  "optionalDependencies": {
+    "@rvrrrr/renderer-linux-x64-gnu": "0.1.0",
+    "@rvrrrr/renderer-linux-x64-musl": "0.1.0",
+    "@rvrrrr/renderer-linux-arm64-gnu": "0.1.0",
+    "@rvrrrr/renderer-darwin-x64": "0.1.0",
+    "@rvrrrr/renderer-darwin-arm64": "0.1.0",
+    "@rvrrrr/renderer-win32-x64-msvc": "0.1.0",
+    "@rvrrrr/renderer-win32-arm64-msvc": "0.1.0"
   },
   "engines": {
     "node": ">=20"

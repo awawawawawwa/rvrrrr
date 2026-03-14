@@ -1,0 +1,9 @@
+{
+  "name": "@rvrrrr/renderer-win32-x64-msvc",
+  "version": "0.1.0",
+  "description": "Prebuilt rvrrrr-renderer binary for Windows x64 (MSVC)",
+  "os": ["win32"],
+  "cpu": ["x64"],
+  "files": ["rvrrrr-renderer.exe"],
+  "license": "MIT"
+}
