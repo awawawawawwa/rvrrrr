@@ -30,7 +30,7 @@ async fn main() {
     terminal::install_panic_hook();
 
     if let Err(e) = run().await {
-        eprintln!("tui-engine-renderer fatal: {e}");
+        eprintln!("rvrrrr-renderer fatal: {e}");
         std::process::exit(1);
     }
 }
@@ -71,7 +71,7 @@ async fn run() -> std::io::Result<()> {
                         }
                     }
                     Err(e) => {
-                        eprintln!("tui-engine-renderer: JSON parse error: {e}");
+                        eprintln!("rvrrrr-renderer: JSON parse error: {e}");
                         let _ = write_ndjson(&OutMessage::Error {
                             message: format!("JSON parse error: {e}"),
                         });
@@ -79,11 +79,11 @@ async fn run() -> std::io::Result<()> {
                 }
             }
             Ok(None) => {
-                eprintln!("tui-engine-renderer: stdin EOF, exiting");
+                eprintln!("rvrrrr-renderer: stdin EOF, exiting");
                 break;
             }
             Err(e) => {
-                eprintln!("tui-engine-renderer: stdin read error: {e}");
+                eprintln!("rvrrrr-renderer: stdin read error: {e}");
                 break;
             }
         }
@@ -133,7 +133,7 @@ fn handle_in_message(
         }
         InMessage::Error { message, code } => {
             let code_str = code.as_deref().unwrap_or("UNKNOWN");
-            eprintln!("tui-engine-renderer: protocol error [{code_str}]: {message}");
+            eprintln!("rvrrrr-renderer: protocol error [{code_str}]: {message}");
         }
     }
     Ok(true)

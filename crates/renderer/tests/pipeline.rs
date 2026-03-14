@@ -1,8 +1,8 @@
-use tui_engine_renderer::ansi::emit_diff;
-use tui_engine_renderer::buffer::Buffer;
-use tui_engine_renderer::diff::compute_diff;
-use tui_engine_renderer::painter::{clip::ClipRect, paint_tree};
-use tui_engine_renderer::protocol::InMessage;
+use rvrrrr_renderer::ansi::emit_diff;
+use rvrrrr_renderer::buffer::Buffer;
+use rvrrrr_renderer::diff::compute_diff;
+use rvrrrr_renderer::painter::{clip::ClipRect, paint_tree};
+use rvrrrr_renderer::protocol::InMessage;
 
 #[test]
 fn full_pipeline_two_frames() {

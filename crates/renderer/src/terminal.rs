@@ -76,7 +76,7 @@ impl Terminal {
         }
 
         // Headless mode: no raw mode, no alternate screen.
-        eprintln!("tui-engine-renderer: no TTY detected, running in headless mode");
+        eprintln!("rvrrrr-renderer: no TTY detected, running in headless mode");
         let null_writer = open_null_writer();
         Ok(Self {
             writer: null_writer,

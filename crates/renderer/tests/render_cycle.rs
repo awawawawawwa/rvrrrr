@@ -1,7 +1,7 @@
-use tui_engine_renderer::buffer::Buffer;
-use tui_engine_renderer::diff::compute_diff;
-use tui_engine_renderer::painter::{clip::ClipRect, paint_tree};
-use tui_engine_renderer::protocol::InMessage;
+use rvrrrr_renderer::buffer::Buffer;
+use rvrrrr_renderer::diff::compute_diff;
+use rvrrrr_renderer::painter::{clip::ClipRect, paint_tree};
+use rvrrrr_renderer::protocol::InMessage;
 
 fn parse_and_render(json: &str, width: u16, height: u16) -> Buffer {
     let msg: InMessage = serde_json::from_str(json).unwrap();
@@ -223,7 +223,7 @@ fn box_with_background_fills_cells() {
 
 #[test]
 fn emit_diff_roundtrip() {
-    use tui_engine_renderer::ansi::emit_diff;
+    use rvrrrr_renderer::ansi::emit_diff;
 
     let json1 = r#"{
         "type": "render",
