@@ -83,10 +83,10 @@
 
 ### Distribution
 
-- [ ] **DIST-01**: npm package with per-platform prebuilt Rust binaries (linux-x64-gnu, linux-x64-musl, linux-arm64-gnu, darwin-x64, darwin-arm64, win32-x64-msvc, win32-arm64-msvc)
+- [x] **DIST-01**: npm package with per-platform prebuilt Rust binaries (linux-x64-gnu, linux-x64-musl, linux-arm64-gnu, darwin-x64, darwin-arm64, win32-x64-msvc, win32-arm64-msvc)
 - [x] **DIST-02**: cargo install tui-engine-renderer as alternative
-- [ ] **DIST-03**: Dual CJS/ESM output via tsup
-- [ ] **DIST-04**: Zero postinstall scripts — optionalDependencies pattern only
+- [x] **DIST-03**: Dual CJS/ESM output via tsup
+- [x] **DIST-04**: Zero postinstall scripts — optionalDependencies pattern only
 
 ## v2 Requirements
 
@@ -176,10 +176,10 @@
 | BRDG-02 | Phase 5 | Complete |
 | BRDG-03 | Phase 5 | Complete |
 | BRDG-04 | Phase 5 | Complete |
-| DIST-01 | Phase 7 | Pending |
+| DIST-01 | Phase 7 | Complete |
 | DIST-02 | Phase 7 | Complete |
-| DIST-03 | Phase 7 | Pending |
-| DIST-04 | Phase 7 | Pending |
+| DIST-03 | Phase 7 | Complete |
+| DIST-04 | Phase 7 | Complete |
 
 **Coverage:**
 - v1 requirements: 56 total

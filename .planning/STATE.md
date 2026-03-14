@@ -4,12 +4,12 @@ milestone: v1.0
 milestone_name: milestone
 current_plan: 06-05 (complete)
 status: in_progress
-last_updated: "2026-03-14T00:07:59.983Z"
+last_updated: "2026-03-14T00:10:04.955Z"
 progress:
   total_phases: 7
   completed_phases: 2
   total_plans: 11
-  completed_plans: 9
+  completed_plans: 10
 ---
 
 ---
@@ -44,13 +44,13 @@ See: .gsd/PROJECT.md (updated 2026-03-11)
 | 4 | Rust Renderer | In Progress | 0/0 |
 | 5 | Bridge & Process Management | Complete | 3/3 complete |
 | 6 | API Parity — Hooks, Render API & Integration | Complete | 5/5 complete |
-| 7 | Distribution & Packaging | Pending | 0/0 |
+| 7 | Distribution & Packaging | In Progress | 1/3 complete |
 
 ## Current Phase
-**Phase 6: API Parity — Hooks, Render API & Integration**
-Status: Complete
-Current Plan: 06-05 (complete)
-Next Plan: Phase 7 (Distribution & Packaging)
+**Phase 7: Distribution & Packaging**
+Status: In Progress
+Current Plan: 07-01 (complete)
+Next Plan: 07-02
 
 ## Decisions
 - Bridge encodes messages inline with JSON.stringify rather than extending Phase 3 encodeMessage — bridge adds frameId, resize, shutdown, rendered, fatal message types not in ProtocolMessage union
@@ -71,6 +71,9 @@ Next Plan: Phase 7 (Distribution & Packaging)
 - [Phase 06]: internal_static prop stored directly on DOMElement node (not in attributes Map) — handled specially in reconciler createInstance/commitUpdate
 - [Phase 06-05]: src/index.ts replaced with consumer-facing public API barrel — internal index previously exported reconciler/DOM/protocol internals, now exports only the Ink-compatible public surface
 - [Phase 07-distribution-packaging]: Crate renamed from tui-engine-renderer to rvrrrr-renderer; internal use paths updated in main.rs; repository URL is placeholder github.com/rvrrrr/rvrrrr
+- [Phase 07]: createRequire(import.meta.url) for optionalDependencies binary resolution — avoids hardcoded node_modules paths
+- [Phase 07]: PLATFORM_MAP exported for testability; getPlatformPackageName aliases getCurrentPlatformSuffix
+- [Phase 07]: tsup format ['esm','cjs'] — dual output; CJS import.meta warning is benign
 
 ## Memory
 - src/bridge/ module complete: IpcRendererBridge class (ipc-child.ts), resolveBinaryPath (binary-resolver.ts), types (types.ts), public index (index.ts)
