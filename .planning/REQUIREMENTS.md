@@ -84,7 +84,7 @@
 ### Distribution
 
 - [ ] **DIST-01**: npm package with per-platform prebuilt Rust binaries (linux-x64-gnu, linux-x64-musl, linux-arm64-gnu, darwin-x64, darwin-arm64, win32-x64-msvc, win32-arm64-msvc)
-- [ ] **DIST-02**: cargo install tui-engine-renderer as alternative
+- [x] **DIST-02**: cargo install tui-engine-renderer as alternative
 - [ ] **DIST-03**: Dual CJS/ESM output via tsup
 - [ ] **DIST-04**: Zero postinstall scripts — optionalDependencies pattern only
 
@@ -177,7 +177,7 @@
 | BRDG-03 | Phase 5 | Complete |
 | BRDG-04 | Phase 5 | Complete |
 | DIST-01 | Phase 7 | Pending |
-| DIST-02 | Phase 7 | Pending |
+| DIST-02 | Phase 7 | Complete |
 | DIST-03 | Phase 7 | Pending |
 | DIST-04 | Phase 7 | Pending |
 
